@@ -1,0 +1,58 @@
+[
+  {
+    "input": "ನನಗೆ ಜ್ವರ ಬಂದಿದೆ",
+    "intent": {
+      "command": "book",
+      "disease": "ಜ್ವರ",
+      "specialization": "General Physician",
+      "hospital_name": null,
+      "district": null,
+      "state": null,
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "ನನಗೆ ಜ್ವರ ಬಂದಿದೆ"
+    }
+  },
+  {
+    "input": "ಮಂಗಳೂರಿನಲ್ಲಿ ಚರ್ಮದ ಕಾಯಿಲೆಗೆ ವೈದ್ಯರ ಬೇಕು",
+    "intent": {
+      "command": "book",
+      "disease": null,
+      "specialization": "Dermatologist",
+      "hospital_name": null,
+      "district": "Mangalore",
+      "state": "Karnataka",
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "ಮಂಗಳೂರಿನಲ್ಲಿ ಚರ್ಮದ ಕಾಯಿಲೆಗೆ ವೈದ್ಯರ ಬೇಕು"
+    }
+  },
+  {
+    "input": "ಬೆಂಗಳೂರಿನಲ್ಲಿ ಕಣ್ಣಿನ ವೈದ್ಯರು ಬೇಕು",
+    "intent": {
+      "command": "book",
+      "disease": null,
+      "specialization": "Ophthalmologist",
+      "hospital_name": null,
+      "district": "Bangalore Urban",
+      "state": "Karnataka",
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "ಬೆಂಗಳೂರಿನಲ್ಲಿ ಕಣ್ಣಿನ ವೈದ್ಯರು ಬೇಕು"
+    }
+  },
+  {
+    "input": "ಶಿವಮೊಗ್ಗದಲ್ಲಿ ಹಾರ್ಟ್ ಸ್ಪೆಷಲಿಸ್ಟ್ ಎಲ್ಲಿದ್ದಾರೆ",
+    "intent": {
+      "command": "book",
+      "disease": "ಹಾರ್ಟ್",
+      "specialization": "Cardiologist",
+      "hospital_name": null,
+      "district": "Shivamogga",
+      "state": "Karnataka",
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "ಶಿವಮೊಗ್ಗದಲ್ಲಿ ಹಾರ್ಟ್ ಸ್ಪೆಷಲಿಸ್ಟ್ ಎಲ್ಲಿದ್ದಾರೆ"
+    }
+  }
+]

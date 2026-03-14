@@ -1,0 +1,58 @@
+[
+  {
+    "input": "मुझे बुखार है",
+    "intent": {
+      "command": "book",
+      "disease": "बुखार",
+      "specialization": "General Physician",
+      "hospital_name": null,
+      "district": null,
+      "state": null,
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "मुझे बुखार है"
+    }
+  },
+  {
+    "input": "मंगलुरु में त्वचा रोग विशेषज्ञ चाहिए",
+    "intent": {
+      "command": "book",
+      "disease": null,
+      "specialization": "Dermatologist",
+      "hospital_name": null,
+      "district": "Mangalore",
+      "state": "Karnataka",
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "मंगलुरु में त्वचा रोग विशेषज्ञ चाहिए"
+    }
+  },
+  {
+    "input": "बेंगलुरु में आँख के डॉक्टर चाहिए",
+    "intent": {
+      "command": "book",
+      "disease": null,
+      "specialization": "Ophthalmologist",
+      "hospital_name": null,
+      "district": "Bangalore Urban",
+      "state": "Karnataka",
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "बेंगलुरु में आँख के डॉक्टर चाहिए"
+    }
+  },
+  {
+    "input": "शिमोगा में दिल के डॉक्टर कहाँ हैं",
+    "intent": {
+      "command": "book",
+      "disease": null,
+      "specialization": "Cardiologist",
+      "hospital_name": null,
+      "district": "Shivamogga",
+      "state": "Karnataka",
+      "date": "2026-03-15",
+      "time_preference": null,
+      "raw_text": "शिमोगा में दिल के डॉक्टर कहाँ हैं"
+    }
+  }
+]

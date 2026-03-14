@@ -1,0 +1,84 @@
+﻿uvicorn : INFO:     Started server process [55140]
+At line:1 char:1
++ uvicorn main:app --port 8001 > server_log.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [55140]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+[EMAIL] OK: Email sent to chethansunny17@gmail.com
+INFO:     127.0.0.1:64692 - "POST /api/voice/book HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Rohan H G\Downloads\shivamogga\backend\main.py", line 437, in voice_book_appointment
+    print(f"[EMAIL] \u2705 Booking email sent to: {notify_email}")
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 8: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rohan H 
+G\AppData\Local\Programs\Python\Python311\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 412, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rohan H 
+G\AppData\Local\Programs\Python\Python311\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\fastapi\applications.py", line 
+1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\applications.py", line 
+123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\middleware\cors.py", 
+line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Rohan H 
+G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\_exception_handler.py", 
+line 64, in wrapped_app
+    raise exc
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\routing.py", line 758, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\routing.py", line 778, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\routing.py", line 299, 
+in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\routing.py", line 79, 
+in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\_exception_handler.py", 
+line 64, in wrapped_app
+    raise exc
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\starlette\routing.py", line 74, 
+in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 222, in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+  File "C:\Users\Rohan H G\AppData\Local\Programs\Python\Python311\Lib\site-packages\fastapi\concurrency.py", line 35, 
+in contextmanager_in_threadpool
+    raise e
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 8: character maps to <undefined>

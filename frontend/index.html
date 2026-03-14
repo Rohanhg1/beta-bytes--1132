@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartClinic GeoVoice | Map & Voice Hospital Booking</title>
+    <meta name="description"
+        content="AI voice-based hospital booking platform with map integration for India. Find and book the best hospitals instantly.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Leaflet.js CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="/static/styles.css?v=15">
+
+</head>
+
+<body>
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showPage('home')">
+                <span class="logo-icon">🗺️</span>
+                <span class="logo-text">Geo<span class="logo-accent">Voice</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" id="nav-home" onclick="showPage('home')" data-translate="NAV_HOME">Home</a>
+                <a href="#" class="nav-link" id="nav-booking" onclick="showPage('booking')" data-translate="NAV_BOOKING">Book Hospital</a>
+                <a href="#" class="nav-link" id="nav-hospitals" onclick="showPage('hospitals-page')" data-translate="NAV_ALL_HOSPITALS">All Hospitals</a>
+                <a href="#" class="nav-link" id="nav-login" onclick="showPage('login')" data-translate="NAV_ADMIN">Admin Portal</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#" onclick="showPage('home'); toggleMobileMenu()">Home</a>
+            <a href="#" onclick="showPage('booking'); toggleMobileMenu()">Book Hospital</a>
+            <a href="#" onclick="showPage('hospitals-page'); toggleMobileMenu()">All Hospitals</a>
+            <a href="#" onclick="showPage('login'); toggleMobileMenu()">Admin Portal</a>
+        </div>
+    </nav>
+
+    <!-- ============ HOME PAGE ============ -->
+    <main class="page active" id="home">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg">
+                <div class="hero-gradient"></div>
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    India's Top Hospital Network 🇮🇳
+                </div>
+                <h1 class="hero-title" id="hero-title" data-translate="HERO_TITLE">
+                    Voice + Map Powered<br>
+                    <span class="gradient-text">Hospital Booking</span>
+                </h1>
+                <p class="hero-subtitle" id="hero-subtitle" data-translate="HERO_SUBTITLE">
+                    Select your state and district in India, speak your disease or hospital name, and let our AI find
+                    the absolute best hospital and book it instantly.
+                </p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary btn-lg pulse-click" onclick="showPage('booking')" id="btn-start-booking" data-translate="BTN_START_VOICE">
+                        <span class="btn-icon">🎙️</span>
+                        Start Voice Booking
+                    </button>
+                    <button class="btn btn-glass btn-lg" onclick="showPage('hospitals-page')" id="btn-explore-map" data-translate="BTN_EXPLORE_MAP">
+                        Explore Map
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">28</span>
+                        <span class="stat-label">States</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">100+</span>
+                        <span class="stat-label">Districts</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">Top 1%</span>
+                        <span class="stat-label">Hospitals</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Platform Features</span>
+                    <h2 class="section-title">How <span class="gradient-text">GeoVoice</span> Works</h2>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card fade-up">
+                        <div class="step-icon">🗺️</div>
+                        <h3 data-translate="STEP1_TITLE">1. Select Location</h3>
+                        <p data-translate="STEP1_DESC">Pick your State and District. Our Leaflet map will automatically zero in on your selected area in India.</p>
+                    </div>
+                    <div class="step-card fade-up" style="animation-delay: 0.1s">
+                        <div class="step-icon">🗣️</div>
+                        <h3 data-translate="STEP2_TITLE">2. Speak Your Need</h3>
+                        <p data-translate="STEP2_DESC">Say "I have chest pain" or "Book Apollo Hospital". Whisper API instantly converts speech to text.</p>
+                    </div>
+                    <div class="step-card fade-up" style="animation-delay: 0.2s">
+                        <div class="step-icon">🧠</div>
+                        <h3 data-translate="STEP3_TITLE">3. AI Matching</h3>
+                        <p data-translate="STEP3_DESC">Our deep matching engine links your disease to a specialty and finds the best rated hospital.</p>
+                    </div>
+                    <div class="step-card fade-up" style="animation-delay: 0.3s">
+                        <div class="step-icon">✅</div>
+                        <h3 data-translate="STEP4_TITLE">4. Instant Booking & TTS</h3>
+                        <p data-translate="STEP4_DESC">We trigger an AI Voice Confirmation and SMTP Email, booking you into the local hospital automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ BOOKING PAGE (Map + Voice) ============ -->
+    <main class="page" id="booking">
+        <section class="booking-section">
+            <div class="container booking-layout">
+
+                <!-- Left Column: Map & Selectors -->
+                <div class="booking-left">
+                    <div class="panel map-panel">
+                        <div class="panel-header">
+                            <h3 data-translate="MAP_TITLE">📍 India Location Map</h3>
+                            <p data-translate="MAP_SUBTITLE">Select location to discover hospitals</p>
+                        </div>
+
+                        <!-- Selectors -->
+                        <div class="location-selectors">
+                            <div class="select-group">
+                                <label data-translate="LABEL_STATE">State</label>
+                                <select id="state-select" class="input-field" onchange="onStateChange()">
+                                    <option value="" disabled selected>Select State</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                            <div class="select-group">
+                                <label data-translate="LABEL_DISTRICT">District</label>
+                                <select id="district-select" class="input-field" onchange="onDistrictChange()" disabled>
+                                    <option value="" disabled selected>Select District</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Map Container -->
+                        <div style="position: relative;">
+                            <div id="hospital-map" class="map-container"></div>
+                        </div>
+                        
+                        <div class="map-legend">
+                            <span class="legend-item"><span class="legend-dot red" style="background: red;"></span> All Hospitals & Clinics</span>
+                        </div>
+
+                        <!-- Results Panel - Moved below map -->
+                        <div id="map-floating-panel" class="hidden" style="margin-top: 20px; background: rgba(0,30,0,0.9); color: #00ff00; padding: 20px; border-radius: 12px; border: 1px solid #1f501f; font-family: 'Courier New', monospace; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-left: 4px solid #00ff00;">
+                            <h4 style="margin: 0 0 15px 0; border-bottom: 1px solid #1f501f; padding-bottom: 12px; font-weight: 800; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;">
+                                <span style="display: inline-block; width: 10px; height: 10px; background: #0f0; border-radius: 50%; box-shadow: 0 0 10px #0f0; animation: pulse-green 2s infinite;"></span>
+                                <span data-translate="PANEL_RESULTS_TITLE">HOSPITAL MATCHES</span>
+                            </h4>
+                            <div style="font-size: 14px; line-height: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div><span style="color: #55a555;">[SEARCH_NODES]</span> <span data-translate="PANEL_NODES">Found Nodes</span> = <span id="panel-found-nodes" style="color: #fff; font-weight: bold;">0</span></div>
+                                <div><span style="color: #55a555;">[ALGO_RATING]</span> <span data-translate="PANEL_MAX_RATING">Max Rating</span> = <span id="panel-max-rating" style="color: #fff; font-weight: bold;">-</span></div>
+                            </div>
+                            <div style="margin-top: 15px; border-top: 1px solid #1f501f; padding-top: 15px;">
+                                <div style="margin-bottom: 10px; font-size: 16px;">
+                                    <span style="color: #55a555;">[BOOKED_UNIT]</span> <span id="panel-booked-hospital" style="color: #fff; font-weight: 900; text-transform: uppercase;">-</span>
+                                </div>
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px;">
+                                    <div><span style="color: #55a555;"><span data-translate="PANEL_LOCATION">LOCATION</span>:</span> <span id="panel-district" style="color: #fff; font-weight: bold;">-</span></div>
+                                    <div><span style="color: #55a555;"><span data-translate="PANEL_SPECIALTY">SPECIALTY</span>:</span> <span id="panel-specialist" style="color: #fff; font-weight: bold;">-</span></div>
+                                </div>
+                                <div style="margin-top: 10px; font-size: 14px;">
+                                    <span style="color: #55a555;">[TOKEN]</span> <span data-translate="PANEL_TOKEN">Token Number</span> = <span id="panel-token" style="color: #fff; font-weight: bold; background: #004400; padding: 2px 6px; border-radius: 4px;">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Voice AI -->
+                <div class="booking-right">
+                    <div class="panel voice-panel">
+                        <div class="panel-header text-center">
+                            <h3 data-translate="VOICE_TITLE">🎙️ Voice Receptionist</h3>
+                            <p data-translate="VOICE_SUBTITLE">Speak disease, specialization or hospital name</p>
+                        </div>
+
+                        <!-- Language Selector -->
+                        <div class="lang-toggle-group" id="lang-toggle-group">
+                            <button class="lang-btn" id="lang-en" onclick="setVoiceLanguage('en-IN')">🇬🇧 English</button>
+                            <button class="lang-btn active-lang" id="lang-kn" onclick="setVoiceLanguage('kn-IN')">🇮🇳 ಕನ್ನಡ</button>
+                            <button class="lang-btn" id="lang-hi" onclick="setVoiceLanguage('hi-IN')">🇮🇳 हिंदी</button>
+                        </div>
+
+                        <!-- Select Time Slot -->
+                        <div class="time-slot-form" style="margin-top: 15px; margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #1e293b; font-size: 14px;" data-translate="LABEL_TIME_SLOT">Select Appt Time (Required)</label>
+                            <div class="time-slot-grid" id="time-slot-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <button class="btn btn-outline time-slot-btn" onclick="selectTimeSlot('9:00 AM – 11:00 AM')" style="padding: 8px 5px; font-size: 12px; border-radius: 8px; font-weight: 600;" data-translate="TIME_MORNING">9:00 AM – 11:00 AM</button>
+                                <button class="btn btn-outline time-slot-btn" onclick="selectTimeSlot('11:00 AM – 1:00 PM')" style="padding: 8px 5px; font-size: 12px; border-radius: 8px; font-weight: 600;" data-translate="TIME_AFTERNOON">11:00 AM – 1:00 PM</button>
+                                <button class="btn btn-outline time-slot-btn" onclick="selectTimeSlot('2:00 PM – 3:00 PM')" style="padding: 8px 5px; font-size: 12px; border-radius: 8px; font-weight: 600;" data-translate="TIME_EVENING">2:00 PM – 3:00 PM</button>
+                                <button class="btn btn-outline time-slot-btn" onclick="selectTimeSlot('3:00 PM – 6:00 PM')" style="padding: 8px 5px; font-size: 12px; border-radius: 8px; font-weight: 600;" data-translate="TIME_NIGHT">3:00 PM – 6:00 PM</button>
+                            </div>
+                            <input type="hidden" id="selected-time-slot" value="">
+                        </div>
+
+                        <!-- Voice Visualizer -->
+                        <div class="voice-visualizer-block">
+                            <div class="voice-visualizer" id="voice-visualizer">
+                                <div class="pulse-ring"></div>
+                                <div class="pulse-ring delay-1"></div>
+                                <div class="pulse-ring delay-2"></div>
+                                <button class="mic-button" id="mic-button" onclick="toggleVoice()">
+                                    <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                        <line x1="12" y1="19" x2="12" y2="23" />
+                                        <line x1="8" y1="23" x2="16" y2="23" />
+                                    </svg>
+                                    <svg class="stop-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                                        <rect x="6" y="6" width="12" height="12" rx="2" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="voice-status" id="voice-status">Select a district, then click mic</div>
+                        </div>
+
+                        <!-- Transcript -->
+                        <div class="transcript-area hidden" id="transcript-area">
+                            <label class="transcript-label">I heard:</label>
+                            <div class="transcript-text" id="transcript-text"></div>
+                        </div>
+
+                        <!-- Manual Input -->
+                        <div class="manual-input-section mt-4">
+                            <div class="divider"><span data-translate="OR_TYPE">or type request</span></div>
+                            <div class="manual-input-row mt-3">
+                                <input type="text" id="manual-text" class="input-field"
+                                    placeholder="e.g. Book Apollo Hospital in Bangalore"
+                                    onkeydown="if(event.key==='Enter') processManualText()" data-translate-attr="placeholder:PLACEHOLDER_MANUAL">
+                                <button class="btn btn-primary" onclick="processManualText()" data-translate="BTN_SEND">Send</button>
+                            </div>
+                            <div class="voice-hints mt-3">
+                                <strong data-translate="TRY_SAYING">Try saying:</strong>
+                                <ul>
+                                    <li data-translate="HINT_1">"I have severe chest pain"</li>
+                                    <li data-translate="HINT_2">"Book Apollo Hospital for 6 PM"</li>
+                                    <li data-translate="HINT_3">"I need a skin doctor"</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Intent Preview / Booking Result -->
+                        <div id="booking-flow-results" class="mt-4">
+                            <!-- Intent Preview -->
+                            <div class="intent-preview hidden mb-3" id="intent-preview">
+                                <h4>🤖 AI NLP Intent</h4>
+                                <div class="intent-grid" id="intent-grid"></div>
+                            </div>
+
+                            <!-- Final Result -->
+                            <div class="booking-result hidden" id="booking-result">
+                                <div class="result-content" id="result-content"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ HOSPITALS LIST PAGE ============ -->
+    <main class="page" id="hospitals-page">
+        <section class="section bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Database</span>
+                    <h2 class="section-title">Network <span class="gradient-text">Hospitals</span></h2>
+                </div>
+                <div class="filter-bar mb-4">
+                    <select id="hosp-filter-state" class="input-field" style="max-width: 250px;">
+                        <option value="">All States</option>
+                    </select>
+                    <select id="hosp-filter-specialty" class="input-field" style="max-width: 250px;">
+                        <option value="">All Specializations</option>
+                        <option value="Cardiologist">Cardiologist (Heart)</option>
+                        <option value="Neurologist">Neurologist (Brain)</option>
+                        <option value="Orthopedic">Orthopedic (Bone)</option>
+                        <option value="Pediatrician">Pediatrician (Child)</option>
+                        <option value="Dermatologist">Dermatologist (Skin)</option>
+                        <option value="General Physician">General Physician</option>
+                        <option value="Dentist">Dentist</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="loadAllHospitals()">Filter</button>
+                </div>
+
+                <div class="hospitals-grid" id="hospitals-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ LOGIN / REGISTER PAGE ============ -->
+    <main class="page" id="login">
+        <section class="auth-section">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <span class="logo-icon">👑</span>
+                        <h2>Admin Portal</h2>
+                        <p id="auth-subtitle">Sign in to manage maps and DB</p>
+                    </div>
+
+                    <!-- Auth Tab Switcher -->
+                    <div class="auth-tabs" style="display:flex; margin-bottom:20px; border-radius:10px; overflow:hidden; border:1px solid #e2e8f0;">
+                        <button type="button" id="tab-login" class="auth-tab active"
+                            onclick="switchAuthTab('login')"
+                            style="flex:1; padding:10px; border:none; cursor:pointer; font-weight:600; font-size:14px; transition: all 0.3s ease; background: linear-gradient(135deg, #4f46e5, #ec4899); color:#fff;">
+                            Sign In
+                        </button>
+                        <button type="button" id="tab-register" class="auth-tab"
+                            onclick="switchAuthTab('register')"
+                            style="flex:1; padding:10px; border:none; cursor:pointer; font-weight:600; font-size:14px; transition: all 0.3s ease; background:#f8fafc; color:#64748b;">
+                            Register
+                        </button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" onsubmit="handleLogin(event)" autocomplete="off">
+                        <div id="login-error" style="display:none; background:#fef2f2; color:#dc2626; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:14px; border:1px solid #fecaca;"></div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="login-email" name="login-email" class="input-field" placeholder="Enter your email"
+                                autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="login-password" name="login-password" class="input-field" placeholder="Enter your password" autocomplete="new-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100" id="login-btn">
+                            Access Dashboard
+                        </button>
+                    </form>
+
+                    <!-- Register Form (hidden by default) -->
+                    <form id="register-form" onsubmit="handleRegister(event)" style="display:none;" autocomplete="off">
+                        <div id="register-error" style="display:none; background:#fef2f2; color:#dc2626; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:14px; border:1px solid #fecaca;"></div>
+                        <div id="register-success" style="display:none; background:#f0fdf4; color:#16a34a; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:14px; border:1px solid #bbf7d0;"></div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="register-name" name="register-name" class="input-field" placeholder="Enter your name" autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="register-email" name="register-email" class="input-field" placeholder="Enter your email" autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="register-password" name="register-password" class="input-field" placeholder="Create a password (min 6 chars)" autocomplete="new-password" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100" id="register-btn">
+                            Create Account
+                        </button>
+                    </form>
+
+                    <p style="text-align:center; margin-top:16px; font-size:13px; color:#94a3b8;" id="auth-footer-hint">
+                        Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;" style="color:#4f46e5; font-weight:600;">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ DASHBOARD ============ -->
+    <main class="page" id="dashboard">
+        <section class="dashboard-section section">
+            <div class="container">
+                <!-- Dashboard Header -->
+                <div class="dash-header flex-between mb-4">
+                    <div>
+                        <h2>📊 Control Center</h2>
+                        <p class="dash-welcome">Welcome, <span id="dash-user-name">Admin</span></p>
+                    </div>
+                    <div class="dash-header-actions" style="display:flex; gap:10px;">
+                        <button class="btn btn-primary" onclick="showPage('booking')">🗺️ Map View</button>
+                        <button class="btn btn-outline" onclick="handleLogout()">Logout</button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid mb-5" id="stats-grid">
+                    <div class="stat-card stat-card-purple">
+                        <div class="stat-card-icon">🏥</div>
+                        <div class="stat-card-value" id="stat-hospitals">0</div>
+                        <div class="stat-card-label">Hospitals Loaded</div>
+                    </div>
+                    <div class="stat-card stat-card-blue">
+                        <div class="stat-card-icon">📅</div>
+                        <div class="stat-card-value" id="stat-appointments">0</div>
+                        <div class="stat-card-label">Voice Bookings</div>
+                    </div>
+                    <div class="stat-card stat-card-green">
+                        <div class="stat-card-icon">✅</div>
+                        <div class="stat-card-value" id="stat-confirmed">0</div>
+                        <div class="stat-card-label">Confirmed</div>
+                    </div>
+                    <div class="stat-card stat-card-red">
+                        <div class="stat-card-icon">❌</div>
+                        <div class="stat-card-value" id="stat-cancelled">0</div>
+                        <div class="stat-card-label">Cancelled</div>
+                    </div>
+                </div>
+
+                <!-- Appointments Table -->
+                <div class="panel">
+                    <div class="panel-header mb-3">
+                        <h3>📋 Recent Voice Bookings</h3>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Hospital</th>
+                                    <th>District</th>
+                                    <th>Patient</th>
+                                    <th>Date/Time</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-tbody">
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                        <p class="empty-state hidden text-center p-4" id="no-appointments">No appointments yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ TOAST ============ -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Leaflet.js JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/static/app.js?v=23"></script>
+</body>
+
+</html>

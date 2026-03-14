@@ -1,0 +1,10 @@
+import sqlite3
+conn = sqlite3.connect("smartclinic_geo.db")
+cur = conn.cursor()
+cur.execute("SELECT DISTINCT district_name FROM hospitals WHERE district_name LIKE '%mang%' OR district_name LIKE '%udupi%'")
+print("Districts in hospitals table:", cur.fetchall())
+cur.execute("SELECT COUNT(*) FROM hospitals WHERE district_name = 'Mangalore'")
+print("Hospitals in 'Mangalore':", cur.fetchone()[0])
+cur.execute("SELECT COUNT(*) FROM hospitals WHERE district_name = 'Udupi'")
+print("Hospitals in 'Udupi':", cur.fetchone()[0])
+conn.close()
