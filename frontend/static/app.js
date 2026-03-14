@@ -354,6 +354,19 @@ const UI_TRANSLATIONS = {
         HINT_1: '"I have severe chest pain"',
         HINT_2: '"Book Apollo Hospital for 6 PM"',
         HINT_3: '"I need a skin doctor"',
+        TOAST_MIC_CHROME: 'Use Chrome for Voice Features.',
+        TOAST_EMAIL_SENT: 'Email sent successfully to ',
+        TOAST_LOGIN_OK: 'Login Successful',
+        TOAST_LOGIN_FAIL: 'Login Failed',
+        TOAST_REG_OK: 'Account created successfully!',
+        TOAST_REG_FAIL: 'Registration Failed',
+        TOAST_CANCEL_OK: 'Appointment Cancelled',
+        TOAST_CANCEL_FAIL: 'Error cancelling appointment',
+        PANEL_AI_REASONING: 'Neural Analysis:',
+        AI_REASONING_PREFIX: 'Symptoms detected and linked to ',
+        FOOTER_LINKS: 'Quick Links',
+        FOOTER_TECH: 'Powered By',
+        AI_WAITING: 'Waiting for neural link...',
     },
     'kn-IN': {
         NAV_HOME: 'ಮುಖಪುಟ',
@@ -396,6 +409,19 @@ const UI_TRANSLATIONS = {
         HINT_1: '"ನನಗೆ ಎದೆ ನೋವು ಇದೆ"',
         HINT_2: '"ಅಪೊಲೊ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಬುಕ್ ಮಾಡಿ"',
         HINT_3: '"ನನಗೆ ಚರ್ಮದ ವೈದ್ಯರು ಬೇಕು"',
+        TOAST_MIC_CHROME: 'ಧ್ವನಿ ವೈಶಿಷ್ಟ್ಯಗಳಿಗಾಗಿ ದಯವಿಟ್ಟು ಕ್ರೋಮ್ ಬಳಸಿ.',
+        TOAST_EMAIL_SENT: 'ಇಮೇಲ್ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ: ',
+        TOAST_LOGIN_OK: 'ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿದೆ',
+        TOAST_LOGIN_FAIL: 'ಲಾಗಿನ್ ವಿಫಲವಾಗಿದೆ',
+        TOAST_REG_OK: 'ಖಾತೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ!',
+        TOAST_REG_FAIL: 'ನೋಂದಣಿ ವಿಫಲವಾಗಿದೆ',
+        TOAST_CANCEL_OK: 'ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ',
+        TOAST_CANCEL_FAIL: 'ರದ್ದುಗೊಳಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ',
+        PANEL_AI_REASONING: 'ನರಮಂಡಲದ ವಿಶ್ಲೇಷಣೆ:',
+        AI_REASONING_PREFIX: 'ರೋಗಲಕ್ಷಣಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಲಾಗಿದೆ ಮತ್ತು ಇದಕ್ಕೆ ಲಿಂಕ್ ಮಾಡಲಾಗಿದೆ: ',
+        FOOTER_LINKS: 'ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು',
+        FOOTER_TECH: 'ತಾಂತ್ರಿಕ ಬೆಂಬಲ',
+        AI_WAITING: 'ನರಮಂಡಲದ ಲಿಂಕ್‌ಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...',
     },
     'hi-IN': {
         NAV_HOME: 'होम',
@@ -438,6 +464,19 @@ const UI_TRANSLATIONS = {
         HINT_1: '"मेरे सीने में दर्द है"',
         HINT_2: '"अपोलो अस्पताल में बुक करें"',
         HINT_3: '"मुझे त्वचा विशेषज्ञ चाहिए"',
+        TOAST_MIC_CHROME: 'वॉयस फीचर्स के लिए कृपया क्रोम का उपयोग करें।',
+        TOAST_EMAIL_SENT: 'ईमेल सफलतापूर्वक भेजा गया: ',
+        TOAST_LOGIN_OK: 'लॉगिन सफल रहा',
+        TOAST_LOGIN_FAIL: 'लॉगिन विफल रहा',
+        TOAST_REG_OK: 'खाता सफलतापूर्वक बनाया गया!',
+        TOAST_REG_FAIL: 'पंजीकरण विफल रहा',
+        TOAST_CANCEL_OK: 'अपॉइंटमेंट रद्द कर दिया गया',
+        TOAST_CANCEL_FAIL: 'रद्द करने में त्रुटि हुई',
+        PANEL_AI_REASONING: 'तंत्रिका विश्लेषण:',
+        AI_REASONING_PREFIX: 'लक्षणों का पता चला और इससे जोड़ा गया: ',
+        FOOTER_LINKS: 'त्वरित संपर्क',
+        FOOTER_TECH: 'तकनीकी आधार',
+        AI_WAITING: 'तंत्रिका लिंक की प्रतीक्षा है...',
     }
 };
 
@@ -740,7 +779,7 @@ function cleanTranscript(text) {
 }
 
 function toggleVoice() {
-    if (!recognition) return showToast('Use Chrome for Voice Features.', 'error');
+    if (!recognition) return showToast(UI_TRANSLATIONS[currentLang].TOAST_MIC_CHROME || 'Use Chrome for Voice Features.', 'error');
     if (isListening) {
         recognition.stop();
         clearTimeout(voiceSilenceTimer);
@@ -945,10 +984,15 @@ async function processVoiceText() {
                 document.getElementById('panel-district').textContent = data.matched_hospital.district_name;
                 document.getElementById('panel-specialist').textContent = data.appointment.specialization || 'General Specialist';
                 document.getElementById('panel-token').textContent = data.token_number || (data.appointment.appointment_id + 100);
+                
+                // Populate Neural Reasoning
+                const prefix = UI_TRANSLATIONS[currentLang].AI_REASONING_PREFIX || 'Symptoms linked to ';
+                const spec = data.appointment.specialization || 'General Care';
+                document.getElementById('panel-ai-reasoning').textContent = `${prefix}${spec} department. Matching best rated unit in ${data.matched_hospital.district_name}.`;
             }
 
             speakResponse(data.message);
-            showToast(`Email sent successfully to ${data.email_sent_to || 'admin@gmail.com'}`, 'success');
+            showToast(`${UI_TRANSLATIONS[currentLang].TOAST_EMAIL_SENT || 'Email sent to '} ${data.email_sent_to || 'admin@gmail.com'}`, 'success');
         } else {
             speakResponse(data.message);
         }
@@ -1151,11 +1195,11 @@ async function handleLogin(e) {
         errorDiv.style.display = 'none';
         updateNavForAuth();
         showPage('dashboard');
-        showToast('Login Successful', 'success');
+        showToast(UI_TRANSLATIONS[currentLang].TOAST_LOGIN_OK || 'Login Successful', 'success');
     } catch (err) {
         errorDiv.textContent = '❌ ' + (err.message || 'Login failed. Please check your credentials.');
         errorDiv.style.display = 'block';
-        showToast('Login Failed', 'error');
+        showToast(UI_TRANSLATIONS[currentLang].TOAST_LOGIN_FAIL || 'Login Failed', 'error');
     } finally {
         btn.textContent = 'Access Dashboard';
         btn.disabled = false;
@@ -1233,11 +1277,11 @@ async function handleRegister(e) {
         errorDiv.style.display = 'none';
         updateNavForAuth();
         showPage('dashboard');
-        showToast('Account created successfully!', 'success');
+        showToast(UI_TRANSLATIONS[currentLang].TOAST_REG_OK || 'Account created successfully!', 'success');
     } catch (err) {
         errorDiv.textContent = '❌ ' + (err.message || 'Registration failed. Please try again.');
         errorDiv.style.display = 'block';
-        showToast(err.message || 'Registration Failed', 'error');
+        showToast(UI_TRANSLATIONS[currentLang].TOAST_REG_FAIL || 'Registration Failed', 'error');
     } finally {
         btn.textContent = 'Create Account';
         btn.disabled = false;
@@ -1318,9 +1362,9 @@ async function cancelAppointment(id) {
             headers: { 'Authorization': `Bearer ${authToken}` },
         });
         loadDashboard();
-        showToast('Appointment Cancelled', 'info');
+        showToast(UI_TRANSLATIONS[currentLang].TOAST_CANCEL_OK || 'Appointment Cancelled', 'info');
     } catch (e) {
-        showToast('Error cancelling appointment', 'error');
+        showToast(UI_TRANSLATIONS[currentLang].TOAST_CANCEL_FAIL || 'Error cancelling appointment', 'error');
     }
 }
 
